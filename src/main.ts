@@ -1,5 +1,5 @@
 import './style.css';
-import { createIcons, Search, Bell, Download, Terminal, Shield, Users, ArrowUp, BarChart2, Coins, Globe, Layers, Settings, Boxes, Puzzle, Home } from 'lucide';
+import { createIcons, Search, Bell, Download, Terminal, Shield, Users, ArrowUp, BarChart2, Coins, Globe, Layers, Settings, Boxes, Puzzle, Home, Activity, Code, Server, CheckCircle2, Clock } from 'lucide';
 
 // The SVG Spinner Function
 const getSpinner = (size: 'small' | 'medium' | 'large', whiteStroke = false) => `
@@ -12,7 +12,7 @@ const getSpinner = (size: 'small' | 'medium' | 'large', whiteStroke = false) => 
 </div>
 `;
 
-// Define Page Content Templates
+// Define Detailed Page Content Templates
 const pages: Record<string, string> = {
   'metrics': `
     <div class="page-header">
@@ -55,7 +55,6 @@ const pages: Record<string, string> = {
           </defs>
           <line x1="0" y1="100" x2="800" y2="100" stroke="#cbd5e1" stroke-dasharray="4,4"/>
           <line x1="0" y1="200" x2="800" y2="200" stroke="#cbd5e1" stroke-dasharray="4,4"/>
-          <!-- Realistic Wavy Line Chart -->
           <path d="M 0,280 Q 50,280 100,260 T 200,240 T 300,180 T 400,160 T 500,80 T 600,60 T 700,30 T 800,20" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
           <path d="M 0,280 Q 50,280 100,260 T 200,240 T 300,180 T 400,160 T 500,80 T 600,60 T 700,30 T 800,20 L 800,300 L 0,300 Z" fill="url(#orange-grad)"/>
           <path d="M 0,290 Q 150,290 200,280 T 300,230 T 400,200 T 500,120 T 600,110 T 700,90 T 800,80" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
@@ -63,11 +62,130 @@ const pages: Record<string, string> = {
       </div>
     </div>
   `,
-  'overview': `<div class="empty-state"><i data-lucide="home"></i><h2>Overview Dashboard</h2><p>Welcome back, Moriarty.</p></div>`,
-  'points': `<div class="empty-state"><i data-lucide="coins"></i><h2>GenLayer Points</h2><p>Your total staked points and rewards.</p></div>`,
-  'testnets': `<div class="empty-state"><i data-lucide="globe"></i><h2>Active Testnets</h2><p>Network status: Healthy.</p></div>`,
-  'builders': `<div class="empty-state"><i data-lucide="terminal"></i><h2>Builders Portal</h2><p>Deploy contracts and view documentation.</p></div>`,
-  'genesis': `<div class="empty-state"><i data-lucide="layers"></i><h2>Genesis Allocation</h2><p>View genesis block distribution.</p></div>`
+  'overview': `
+    <div class="page-header"><h1>Overview Dashboard</h1></div>
+    <div class="metrics-grid">
+      <div class="metric-card" style="grid-column: span 2; background: linear-gradient(135deg, var(--purple-brand), var(--accent-blue)); color: white;">
+        <div class="metric-data" style="color: white;">
+          <span class="metric-label" style="color: rgba(255,255,255,0.8);">Welcome back,</span>
+          <span class="metric-value">Moriarty</span>
+          <p style="margin-top: 12px; font-size: 0.9rem; opacity: 0.9;">Your GenLayer node is running perfectly. You have earned 450 points this week.</p>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon purple"><i data-lucide="activity"></i></div>
+        <div class="metric-data"><span class="metric-value">99.9%</span><span class="metric-label">Network Uptime</span></div>
+      </div>
+    </div>
+    <div class="table-container">
+      <h3>Recent Activity</h3>
+      <table class="data-table">
+        <tr><th>Action</th><th>Tx Hash</th><th>Time</th><th>Status</th></tr>
+        <tr><td>Contract Deployed</td><td>0x8f4b...3a91</td><td>2 mins ago</td><td><span class="badge success"><i data-lucide="check-circle-2"></i> Success</span></td></tr>
+        <tr><td>Validator Reward</td><td>0x22c1...9b00</td><td>1 hour ago</td><td><span class="badge success"><i data-lucide="check-circle-2"></i> Success</span></td></tr>
+        <tr><td>Node Sync</td><td>-</td><td>3 hours ago</td><td><span class="badge pending"><i data-lucide="clock"></i> Syncing</span></td></tr>
+      </table>
+    </div>
+  `,
+  'points': `
+    <div class="page-header"><h1>GenLayer Points</h1></div>
+    <div class="metrics-grid">
+      <div class="metric-card" style="grid-column: span 2; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px;">
+        <span class="metric-label">Total Accumulated Points</span>
+        <span class="metric-value" style="font-size: 3rem; color: var(--purple-brand);">14,582.50 <span style="font-size: 1rem; color: var(--text-muted);">PTS</span></span>
+      </div>
+    </div>
+    <div class="table-container">
+      <h3>Points Breakdown</h3>
+      <table class="data-table">
+        <tr><th>Category</th><th>Amount</th><th>Last Updated</th></tr>
+        <tr><td>Early Adopter Bonus</td><td>+5,000.00</td><td>Jan 12, 2026</td></tr>
+        <tr><td>Validator Uptime Rewards</td><td>+7,240.50</td><td>Aug 17, 2026</td></tr>
+        <tr><td>GitHub Contributions</td><td>+2,342.00</td><td>Aug 15, 2026</td></tr>
+      </table>
+    </div>
+  `,
+  'testnets': `
+    <div class="page-header"><h1>Active Testnets</h1></div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-data" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+            <strong>GenLayer Sepolia</strong>
+            <span class="badge success">Active</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Block Height: <strong>14,592,102</strong></p>
+          <div class="rpc-box">rpc.sepolia.genlayer.network</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-data" style="width: 100%;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+            <strong>GenLayer Devnet-3</strong>
+            <span class="badge pending">Upgrading</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">Block Height: <strong>8,102,441</strong></p>
+          <div class="rpc-box">rpc.devnet.genlayer.network</div>
+        </div>
+      </div>
+    </div>
+  `,
+  'builders': `
+    <div class="page-header">
+      <h1>Builders Portal</h1>
+      <button class="btn-primary"><i data-lucide="code"></i> Deploy Contract</button>
+    </div>
+    <div class="table-container">
+      <h3>Your Deployed Contracts</h3>
+      <table class="data-table">
+        <tr><th>Contract Name</th><th>Address</th><th>Network</th><th>Interactions</th></tr>
+        <tr><td>GenToken.sol</td><td>0x44a...11f8</td><td>Sepolia</td><td>14,204</td></tr>
+        <tr><td>LiquidityPool.sol</td><td>0x99b...88a1</td><td>Sepolia</td><td>3,102</td></tr>
+        <tr><td>OracleConsumer.sol</td><td>0x11c...77b2</td><td>Devnet-3</td><td>45</td></tr>
+      </table>
+    </div>
+  `,
+  'validators': `
+    <div class="page-header"><h1>Validators Hub</h1></div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon blue"><i data-lucide="server"></i></div>
+        <div class="metric-data"><span class="metric-value">Active</span><span class="metric-label">Node Status</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon orange"><i data-lucide="activity"></i></div>
+        <div class="metric-data"><span class="metric-value">45%</span><span class="metric-label">CPU Usage</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon purple"><i data-lucide="boxes"></i></div>
+        <div class="metric-data"><span class="metric-value">50,000</span><span class="metric-label">Staked GL</span></div>
+      </div>
+    </div>
+    <div class="table-container">
+      <h3>Node Health Logs</h3>
+      <div style="background: #1e293b; color: #38bdf8; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 0.85rem;">
+        > [INFO] Syncing block 14,592,102... SUCCESS<br>
+        > [INFO] Validating consensus signature... VERIFIED<br>
+        > [INFO] Connected to 24 peers.<br>
+        <span style="color: #4ade80;">> [SUCCESS] Node operating optimally.</span>
+      </div>
+    </div>
+  `,
+  'genesis': `
+    <div class="page-header"><h1>Genesis Allocation</h1></div>
+    <div style="display: flex; gap: 32px; align-items: center; background: white; padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);">
+      <div style="width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(var(--purple-brand) 0% 40%, var(--accent-blue) 40% 70%, var(--accent-orange) 70% 90%, #cbd5e1 90% 100%); box-shadow: 0 10px 25px rgba(0,0,0,0.1);"></div>
+      <div style="flex: 1;">
+        <h3 style="margin-bottom: 16px; font-size: 1.4rem;">Token Distribution</h3>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 4px; background: var(--purple-brand);"></span> <strong>40%</strong> Community Rewards & Airdrop</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 4px; background: var(--accent-blue);"></span> <strong>30%</strong> Ecosystem Development</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 4px; background: var(--accent-orange);"></span> <strong>20%</strong> Core Contributors</li>
+          <li style="display: flex; align-items: center; gap: 8px;"><span style="width: 16px; height: 16px; border-radius: 4px; background: #cbd5e1;"></span> <strong>10%</strong> Initial Liquidity Providers</li>
+        </ul>
+      </div>
+    </div>
+  `
 };
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -123,7 +241,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `;
 
 // Re-initialize icons
-const refreshIcons = () => createIcons({ icons: { Search, Bell, Download, Terminal, Shield, Users, ArrowUp, BarChart2, Coins, Globe, Layers, Settings, Boxes, Puzzle, Home } });
+const refreshIcons = () => createIcons({ icons: { Search, Bell, Download, Terminal, Shield, Users, ArrowUp, BarChart2, Coins, Globe, Layers, Settings, Boxes, Puzzle, Home, Activity, Code, Server, CheckCircle2, Clock } });
 refreshIcons();
 
 // --- Routing & Loading Logic ---
@@ -144,12 +262,12 @@ sidebarLinks.forEach(link => {
     pageLoader.classList.add('active');
     
     setTimeout(() => {
-      // Inject new page content or empty state
-      routerView.innerHTML = pages[pageId] || `<div class="empty-state"><i data-lucide="puzzle"></i><h2>\${pageId}</h2><p>Content is still syncing.</p></div>`;
+      // Inject new page content
+      routerView.innerHTML = pages[pageId];
       refreshIcons();
       pageLoader.classList.remove('active');
       setupChartRefresh(); // Re-attach event listener if metrics page
-    }, 1500); // 1.5s simulated wait
+    }, 1200); // 1.2s simulated wait
   });
 });
 
@@ -180,4 +298,3 @@ const setupChartRefresh = () => {
   });
 };
 setupChartRefresh();
-
