@@ -50,9 +50,9 @@ body {
 
 .gl-path {
   fill: transparent; stroke: var(--spinner-color);
-  stroke-width: 3; stroke-linejoin: round; stroke-linecap: round;
+  stroke-width: var(--spinner-stroke, 3); stroke-linejoin: round; stroke-linecap: round;
   stroke-dasharray: 400; stroke-dashoffset: 400;
-  animation: draw 2s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+  animation: draw var(--spinner-speed, 2s) cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
 }
 
 .gl-path.white-stroke { stroke: #ffffff; }
@@ -177,7 +177,7 @@ body {
 /* Global Content Loader Overlay */
 .page-loader {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(255,255,255,0.9); z-index: 50; display: flex; flex-direction: column;
+  background-color: var(--bg-solid); z-index: 50; display: flex; flex-direction: column;
   justify-content: center; align-items: center; border-radius: 24px; gap: 24px;
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
@@ -216,7 +216,7 @@ body {
 .real-chart { width: 100%; height: 100%; overflow: visible; }
 .loading-overlay {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(241, 245, 249, 0.85); display: flex; flex-direction: column;
+  background-color: var(--bg-app); display: flex; flex-direction: column;
   justify-content: center; align-items: center; z-index: 10; border-radius: 12px;
   gap: 16px; color: var(--text-muted); font-weight: 500; backdrop-filter: blur(4px);
   opacity: 0; pointer-events: none; transition: opacity 0.3s;
@@ -304,3 +304,5 @@ body {
   font-weight: 600;
   margin-top: 16px;
 }
+
+
