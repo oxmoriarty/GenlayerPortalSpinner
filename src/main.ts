@@ -143,7 +143,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 const refreshIcons = () => createIcons({ icons: { Search, Bell, Download, Terminal, Shield, Users, ArrowUp, BarChart2, Coins, Globe, Layers, Settings, Boxes, Puzzle, Home, Activity, Code, Server, CheckCircle2, Clock, Sliders } });
 refreshIcons();
 
-// Routing Logic
+// --- Routing & Loading Logic ---
 const pageLoader = document.getElementById('page-loader')!;
 const routerView = document.getElementById('router-view')!;
 const sidebarLinks = document.querySelectorAll('.nav-item[data-page]');
@@ -192,16 +192,17 @@ function setupPageScripts(pageId: string) {
 
     const updatePreview = () => {
       if (!wrapper) return;
-      wrapper.style.width = `\${inputSize.value}px`;
-      wrapper.style.height = `\${inputSize.value}px`;
+      // Fixed string interpolation without escape characters
+      wrapper.style.width = inputSize.value + 'px';
+      wrapper.style.height = inputSize.value + 'px';
       wrapper.style.setProperty('--spinner-color', inputColor.value);
-      wrapper.style.setProperty('--spinner-speed', `\${inputSpeed.value}s`);
+      wrapper.style.setProperty('--spinner-speed', inputSpeed.value + 's');
       wrapper.style.setProperty('--spinner-stroke', inputStroke.value);
       
-      if(valSize) valSize.innerText = `\${inputSize.value}px`;
+      if(valSize) valSize.innerText = inputSize.value + 'px';
       if(valColor) valColor.innerText = inputColor.value;
-      if(valSpeed) valSpeed.innerText = `\${inputSpeed.value}s`;
-      if(valStroke) valStroke.innerText = `\${inputStroke.value}px`;
+      if(valSpeed) valSpeed.innerText = inputSpeed.value + 's';
+      if(valStroke) valStroke.innerText = inputStroke.value + 'px';
     };
 
     inputSize?.addEventListener('input', updatePreview);
@@ -230,3 +231,14 @@ submitBtn?.addEventListener('click', () => {
   }, 2500);
 });
 
+// Remove global initial loader once everything is ready
+window.addEventListener('load', () => {
+  const globalLoader = document.getElementById('global-loader');
+  if (globalLoader) {
+    // Add a slight delay to ensure fonts/icons are visibly ready
+    setTimeout(() => {
+      globalLoader.style.opacity = '0';
+      globalLoader.style.visibility = 'hidden';
+    }, 1000); // 1s visual spinner on app boot
+  }
+});
